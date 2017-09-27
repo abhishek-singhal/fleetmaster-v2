@@ -29,6 +29,15 @@
 				</a>
 			</li>
 
+			<li @if(Request::is('absent'))class="active"@endif>
+				<a href="/absent">
+					<i class="fa fa-child"></i> <span>Absence Notice</span>
+					<span class="pull-right-container">
+						<small class="label pull-right bg-red"></small>
+					</span>
+				</a>
+			</li>
+
 			<li class="header text-center">ADMIN CONTROLS</li>
 
 			<li @if(Request::is('members/new'))class="active"@endif>

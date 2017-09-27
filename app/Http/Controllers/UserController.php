@@ -30,6 +30,8 @@ class UserController extends Controller
     	if(is_null($id)){
     		return redirect('profile/'.Auth::user()->id);
     	}
-    	return User::where('id', $id)->get();
+        $profile = User::where('id', $id)->first();
+
+    	return view('profile', compact('profile'));
     }
 }

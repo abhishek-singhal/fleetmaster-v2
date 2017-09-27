@@ -1,7 +1,7 @@
 <header class="main-header">
 	<a href="#" class="logo">
 		<span class="logo-mini"><b>FME</b></span>
-		<span class="logo-lg"><b>FLEETMASTER</b></span>
+		<span class="logo-lg"><b>FleetMaster Events</b></span>
 	</a>
 	<nav class="navbar navbar-static-top">
 		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -17,8 +17,8 @@
 					<ul class="dropdown-menu">
 						<li class="user-header">
 							<img src="{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
-							<p>{{Auth::user()->steam_name}} - 
-								<small>Member since {{ date("F j, Y", strtotime(Auth::User()->created_at))}}</small>
+							<p>{{Auth::user()->tmp_name}} - {{DB::table('roles')->where('rank',Auth::user()->rank)->value('role')}}
+								<small>Member since {{Auth::user()->created_at->toDateTimeString()}}</small>
 							</p>
 						</li>
 						<li class="user-footer">

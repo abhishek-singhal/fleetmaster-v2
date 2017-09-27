@@ -11,7 +11,7 @@ Route::get('login/handle', 'AuthController@handle');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
-//CMS
+//DASHBOARD
 Route::get('dashboard', 'HomeController@dashboard');
 
 //MEMBERS
@@ -31,3 +31,8 @@ Route::post('user/skin', 'UserController@skin');
 Route::get('profile/edit', 'UserController@editProfile');
 
 Route::get('profile/{id?}', 'UserController@showProfile');
+
+//ABSENT
+Route::get('absent', 'AbsentController@show');
+
+Route::post('absent', 'AbsentController@store');

@@ -21,7 +21,7 @@ class MembersController extends Controller
 	public function new(){
 		$members = User::where('rank' , 0)->get();
 
-		return view('newMembers',compact('members'));
+		return view('newMembers', compact('members'));
 	}
 
 	public function newUpdate(){
