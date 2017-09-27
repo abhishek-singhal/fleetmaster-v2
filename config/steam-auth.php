@@ -5,7 +5,7 @@ return [
     /*
      * Redirect URL after login
      */
-    'redirect_url' => '/auth/steam/handle',
+    'redirect_url' => '/login/handle',
     /*
      * API Key (set in .env file) [http://steamcommunity.com/dev/apikey]
      */

@@ -57,7 +57,7 @@ class AuthController extends Controller
 
     			if($tmp && $user->rank >= 3){
     				Auth::login($user, true);
-    				$message = "success";
+                    return redirect('/dashboard');
     			}else if(!$tmp){
     				$message = "tmp";
     			}else{
@@ -79,7 +79,7 @@ class AuthController extends Controller
     {
     	$user = User::where('steam_id', $info->steamID64)->first();
 
-    	$tmp_data = $this->fecthTMP($info);
+    	$tmp_data = $this->fetchTMP($info);
 
     	$country = $this->findCountry();
     	
