@@ -38,6 +38,15 @@
 				</a>
 			</li>
 
+			<li @if(Request::is('event/create'))class="active"@endif>
+				<a href="/event/create">
+					<i class="fa fa-child"></i> <span>Create Event</span>
+					<span class="pull-right-container">
+						<small class="label pull-right bg-red"></small>
+					</span>
+				</a>
+			</li>
+
 			<li class="header text-center">ADMIN CONTROLS</li>
 
 			<li @if(Request::is('members/new'))class="active"@endif>

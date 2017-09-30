@@ -46,9 +46,9 @@
 										<input type="hidden" value="{{$member->id}}" name="id">
 										<div class="form-group">
 											<select class="form-control" name="new_rank">
-												<option value="-1">Choose New Role</option>
-												@foreach($roles as $role)
-												<option value="{{$role->rank}}">{{$role->role}}</option>
+												<option value="">Choose New Role</option>
+												@foreach($ranks as $rank)
+												<option value="{{$rank->rank}}">{{$rank->role}}</option>
 												@endforeach
 											</select>
 										</div>

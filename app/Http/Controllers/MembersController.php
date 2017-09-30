@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Role;
+use App\Rank;
 
 class MembersController extends Controller
 {
@@ -13,7 +13,7 @@ class MembersController extends Controller
 	}
 
 	public function members(){
-		$members = User::leftJoin('roles', 'users.rank', '=', 'roles.rank')->where('users.rank', '>=', 3)->get();
+		$members = User::leftJoin('ranks', 'users.rank', '=', 'ranks.rank')->where('users.rank', '>=', 3)->get();
 
 		return view('members', compact('members'));
 	}
@@ -46,14 +46,15 @@ class MembersController extends Controller
 	}
 
 	public function all(){
-		$members = User::leftJoin('roles', 'users.rank', '=', 'roles.rank')->get();
-		$roles = Role::all();
-		return view('allMembers',compact('members', 'roles'));
+		$members = User::leftJoin('ranks', 'users.rank', '=', 'ranks.rank')->get();
+		$ranks = Rank::all();
+		return view('allMembers',compact('members', 'ranks'));
 	}
 
 	public function allUpdate(){
 		$this->validate(request(),[
-			'id' => 'required'
+			'id' => 'required',
+			'new_rank' => 'required'
 		]);
 
 		User::where('id',request('id'))->update([

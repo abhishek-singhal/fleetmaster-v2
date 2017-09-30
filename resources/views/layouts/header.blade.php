@@ -17,7 +17,7 @@
 					<ul class="dropdown-menu">
 						<li class="user-header">
 							<img src="{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
-							<p>{{Auth::user()->tmp_name}} - {{DB::table('roles')->where('rank',Auth::user()->rank)->value('role')}}
+							<p>{{Auth::user()->tmp_name}} - {{DB::table('ranks')->where('rank',Auth::user()->rank)->value('role')}}
 								<small>Member since {{Auth::user()->created_at->toDateTimeString()}}</small>
 							</p>
 						</li>

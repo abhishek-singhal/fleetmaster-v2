@@ -5,6 +5,7 @@ Route::get('/', 'HomeController@index');
 
 //LOGIN PAGES
 Route::get('login', 'AuthController@redirectToSteam');
+
 Route::get('login/handle', 'AuthController@handle');
 
 //LOGOUT
@@ -12,7 +13,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 //DASHBOARD
-Route::get('dashboard', 'HomeController@dashboard');
+Route::get('dashboard', 'HomeController@dashboard')->middleware('LoginAuth');
 
 //MEMBERS
 Route::get('members', 'MembersController@members');
@@ -36,3 +37,17 @@ Route::get('profile/{id?}', 'UserController@showProfile');
 Route::get('absent', 'AbsentController@show');
 
 Route::post('absent', 'AbsentController@store');
+
+//EVENT
+Route::get('event/create', 'EventController@create');
+
+Route::post('event/create', 'EventController@store');
+
+Route::get('event', 'EventController@showall');
+
+Route::post('event/edit', 'EventController@update');
+
+Route::get('event/{id}', 'EventController@show');
+
+Route::get('event/{id}/edit', 'EventController@edit');
+

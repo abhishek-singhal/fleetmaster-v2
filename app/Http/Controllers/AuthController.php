@@ -63,7 +63,7 @@ class AuthController extends Controller
     			}else{
     				$message = "rank";
     			}
-                return redirect($this->redirectURL)->with('message',$message); // redirect to site
+                return redirect($this->redirectURL)->with('message', $message); // redirect to site
             }
         }
         return $this->redirectToSteam();
