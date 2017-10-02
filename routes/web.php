@@ -43,11 +43,18 @@ Route::get('event/create', 'EventController@create');
 
 Route::post('event/create', 'EventController@store');
 
-Route::get('event', 'EventController@showall');
+Route::get('event', 'EventController@show');
 
 Route::post('event/edit', 'EventController@update');
 
-Route::get('event/{id}', 'EventController@show');
+Route::get('event/{id}', 'EventRoleController@show');
 
 Route::get('event/{id}/edit', 'EventController@edit');
+
+//EVENT ROLE
+Route::post('role/yourrole', 'EventRoleController@takeRole');
+
+Route::post('role/confirm', 'EventRoleController@confirm');
+
+Route::post('role/giverole', 'EventRoleController@roleGive');
 

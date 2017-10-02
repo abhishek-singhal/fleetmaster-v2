@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Event;
 use App\EventRole;
 use App\Role;
@@ -109,10 +110,6 @@ class EventController extends Controller
 	}
 
 	public function show(){
-
-	}
-
-	public function showall(){
-
+		return Event::where('time', '>=', Carbon::now())->get();
 	}
 }
