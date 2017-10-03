@@ -15,7 +15,7 @@
 						<img class="profile-user-img img-responsive img-circle" src="{{$profile->avatar}}">
 						<h5 class="profile-username text-center">{{$profile->tmp_name}}</h5>
 						<p class="text-muted text-center">
-							{{DB::table('roles')->where('rank', $profile->rank)->value('role')}}
+							{{DB::table('ranks')->where('rank', $profile->rank)->value('role')}}
 							@if($profile->tmp_iga)
 							 (TMP Staff)
 							@endif

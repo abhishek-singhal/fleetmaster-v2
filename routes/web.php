@@ -4,9 +4,9 @@
 Route::get('/', 'HomeController@index');
 
 //LOGIN PAGES
-Route::get('login', 'AuthController@redirectToSteam');
+Route::get('login', 'AuthController@redirectToSteam')->middleware('LoginAuth');
 
-Route::get('login/handle', 'AuthController@handle');
+Route::get('login/handle', 'AuthController@handle')->middleware('LoginAuth');
 
 //LOGOUT
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
@@ -58,3 +58,8 @@ Route::post('role/confirm', 'EventRoleController@confirm');
 
 Route::post('role/giverole', 'EventRoleController@roleGive');
 
+Route::post('role/removedriver', 'EventRoleController@driverRemove');
+
+Route::post('uploadsave', 'EventRoleController@uploadSave');
+
+Route::post('deletesave', 'EventRoleController@deleteSave');

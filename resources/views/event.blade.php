@@ -20,7 +20,8 @@
 							{{$event->name}}
 						</h3>
 						<a href="/event/{{$event->id}}/edit">
-						<button type="button" class="btn btn-info btn-xs pull-right">Edit</button></a>
+							<button type="button" class="btn btn-info btn-xs pull-right">Edit</button>
+						</a>
 					</div>
 
 					<div class="box-body">
@@ -149,7 +150,21 @@
 								{{$event->notes}}
 							</dd>
 						</dl>						
-
+						@if($save_file)
+						<dl class="dl-horizontal">
+							<dt>
+								<div align="left">
+									Save File:
+								</div>
+							</dt>
+							<dd>
+								<a href="{{Storage::url('saves\FleetMasterEvents-'.$event->id.'.zip')}}" download>
+									<button class="btn btn-info">Download</button>
+								</a>
+							</dd>
+						</dl>
+						
+						@endif
 					</div>
 				</div>
 			</div>
@@ -197,7 +212,7 @@
 									@else
 									<span class="label label-success">Available</span>
 									@endif
-									
+
 								</td>
 							</tr>
 							@endforeach
@@ -205,7 +220,12 @@
 								<td>Drivers</td>
 								<td>
 									@foreach($drivers as $driver)
-									<img src="{{asset('flags/'.$driver->country.'.svg')}}" style="border-radius: 15%;" title="{{$driver->country}}"> {{$driver->tmp_name}}<br>
+									{!! Form::open(['url' => 'role/removedriver']) !!}
+									<img src="{{asset('flags/'.$driver->country.'.svg')}}" style="border-radius: 15%;" title="{{$driver->country}}"> {{$driver->tmp_name}}
+									<input type="hidden" name="event_id" value="{{$driver->event_id}}">
+									<input type="hidden" name="user_id" value="{{$driver->user_id}}">
+									<button type="submit" class="btn btn-danger btn-xs pull-right" title="Delete"><i class="fa fa-trash-o"></i></button><br>
+									{!! Form::close() !!}
 									@endforeach
 								</td>
 							</tr>
@@ -224,6 +244,11 @@
 								@foreach($event_roles as $event_role)
 								@if($event_role->user_id == Auth::user()->id)
 								{{$event_role->name}}
+								@endif
+								@endforeach
+								@foreach($drivers as $driver)
+								@if($driver->user_id == Auth::user()->id)
+								Driver
 								@endif
 								@endforeach
 							</ul>
@@ -293,7 +318,7 @@
 							<label>Choose A Member</label>
 							<select class="form-control select2" name="user_id">
 								@foreach($users = DB::table('users')->where('rank', '>=', 3)->get() as $user)
-									<option value="{{$user->id}}">{{$user->tmp_name}}</option>
+								<option value="{{$user->id}}">{{$user->tmp_name}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -310,6 +335,44 @@
 					</div>
 					{!! Form::close() !!}
 				</div>
+
+				<!-- Save file upload -->
+				<div class="box" style="border-top : none">
+					<div class="box-header with-border">
+						<h3 class="box-title">Upload Save File</h3>
+					</div>
+					@if(!$save_file)
+					{!! Form::open(['url' => '/uploadsave', 'files' => true]) !!}
+					<div class="box-body">
+						<input type="hidden" name="event_id" value="{{$event->id}}">
+						<div class="form-group">
+							<!-- <label for="exampleInputFile">File input</label> -->
+							<input type="file" id="exampleInputFile" name="save" required>
+							<p class="help-block">Only zip file allowed.</p>
+						</div>
+						@if(session('status_file') == 'failed_ext')
+						File not supported.
+						@elseif(session('status_file') == 'failed_exist')
+						File already exists. Delete the existing file to re-upload.
+						@endif
+					</div>
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary pull-right">Submit</button>
+					</div>
+					{!! Form::close() !!}
+					@else
+					<div class="box-body">
+						<div class="form-group"><p class="help-block">File is uploaded.</p></div>
+					</div>
+					{!! Form::open(['url' => '/deletesave']) !!}
+					<div class="box-footer">
+						<input type="hidden" name="event_id" value="{{$event->id}}">
+						<button type="submit" class="btn btn-danger">Delete File</button>
+					</div>
+					{!! Form::close() !!}
+					@endif
+				</div>
+				
 			</div>
 		</div>
 

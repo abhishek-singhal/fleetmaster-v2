@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use Request;
 
 class LoginAuth
 {
@@ -19,7 +20,9 @@ class LoginAuth
         if(!Auth::check())
             return redirect('/');
         else if(Auth::user()->rank < 3)
-            return redirect('logout');
+            return redirect('/logout');
+        else if(Request::is('login') || Request::is('login/handle'))
+            return redirect('/dashboard');
         return $next($request);
     }
 }
