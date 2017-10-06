@@ -117,7 +117,7 @@ class AuthController extends Controller
     	}
     }
     protected function findCountry(){
-    	$url = "https://ipinfo.io/"."103.85.119.13"."/json"; // put ip address here $request()->ip()
+    	$url = "https://ipinfo.io/".$request()->ip()."/json"; // put ip address here $request()->ip()
     	$ch = curl_init();
     	curl_setopt($ch, CURLOPT_URL, $url);
     	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

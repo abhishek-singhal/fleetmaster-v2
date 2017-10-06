@@ -55,11 +55,14 @@ class EventController extends Controller
 				]);
 			}
 		}
-
-		return redirect('/event/' . $event_id);	
+		$status = 'success';
+		return redirect('/event/create')->with('status', $status);	
 	}
 
 	public function edit($id){
+		if(Auth::user()->rank < 4 && Auth::user()->id != Event::where('id', $id)->value('user_id')){
+			return redirect('/dashboard');
+		}
 		$event_roles = EventRole::where('event_id', $id)->get();
 		$roles = Role::all();
 		$event = Event::where('id', $id)->first();
@@ -75,6 +78,9 @@ class EventController extends Controller
 			'destination' => 'required',
 			'time' => 'required',
 		]);
+		if(Auth::user()->rank < 4 && Auth::user()->id != Event::where('id', request('id'))->value('user_id')){
+			return redirect('/dashboard');
+		}
 		if(request('trailer'))
 			$trailer=true;
 		else
@@ -110,6 +116,28 @@ class EventController extends Controller
 	}
 
 	public function show(){
-		return Event::where('time', '>=', Carbon::now())->get();
+		$id = Event::where([['time', '>=', Carbon::now()], ['status', 1]])->orderby('time')->first();
+		if(is_null($id))
+			return redirect('dashboard');
+		else
+			return redirect('/event/'.$id->id);
+	}
+
+	public function new(){
+		$events = Event::where([['time', '>=', Carbon::now()],['status', 0]])->get();
+		return view('newEvents', compact('events'));
+	}
+
+	public function approve(){
+		$this->validate(request(), [
+			'event_id' => 'required'
+		]);
+
+		Event::where('id', request('event_id'))->update([
+			'status' => 1,
+			'approved_by' => Auth::user()->id
+		]);
+
+		return redirect('/event/'.request('event_id'));
 	}
 }

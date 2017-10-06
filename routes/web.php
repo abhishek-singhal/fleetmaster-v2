@@ -18,13 +18,13 @@ Route::get('dashboard', 'HomeController@dashboard')->middleware('LoginAuth');
 //MEMBERS
 Route::get('members', 'MembersController@members');
 
-Route::get('members/new', 'MembersController@new');
+Route::get('members/new', 'MembersController@new')->middleware('Supervisor');
 
-Route::post('members/new', 'MembersController@newUpdate');
+Route::post('members/new', 'MembersController@newUpdate')->middleware('Supervisor');
 
-Route::get('members/all', 'MembersController@all');
+Route::get('members/all', 'MembersController@all')->middleware('Supervisor');
 
-Route::post('members/all', 'MembersController@allUpdate');
+Route::post('members/all', 'MembersController@allUpdate')->middleware('Supervisor');
 
 //USER
 Route::post('user/skin', 'UserController@skin');
@@ -47,6 +47,10 @@ Route::get('event', 'EventController@show');
 
 Route::post('event/edit', 'EventController@update');
 
+Route::get('event/new', 'EventController@new')->middleware('Supervisor');
+
+Route::post('event/new', 'EventController@approve')->middleware('Supervisor');
+
 Route::get('event/{id}', 'EventRoleController@show');
 
 Route::get('event/{id}/edit', 'EventController@edit');
@@ -54,11 +58,11 @@ Route::get('event/{id}/edit', 'EventController@edit');
 //EVENT ROLE
 Route::post('role/yourrole', 'EventRoleController@takeRole');
 
-Route::post('role/confirm', 'EventRoleController@confirm');
+Route::post('role/confirm', 'EventRoleController@confirm')->middleware('Supervisor');
 
-Route::post('role/giverole', 'EventRoleController@roleGive');
+Route::post('role/giverole', 'EventRoleController@roleGive')->middleware('Supervisor');
 
-Route::post('role/removedriver', 'EventRoleController@driverRemove');
+Route::post('role/removedriver', 'EventRoleController@driverRemove')->middleware('Supervisor');
 
 Route::post('uploadsave', 'EventRoleController@uploadSave');
 

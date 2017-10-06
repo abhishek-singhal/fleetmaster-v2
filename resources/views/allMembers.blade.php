@@ -48,7 +48,9 @@
 											<select class="form-control" name="new_rank">
 												<option value="">Choose New Role</option>
 												@foreach($ranks as $rank)
+												@if($rank->rank <= Auth::user()->rank)
 												<option value="{{$rank->rank}}">{{$rank->role}}</option>
+												@endif
 												@endforeach
 											</select>
 										</div>

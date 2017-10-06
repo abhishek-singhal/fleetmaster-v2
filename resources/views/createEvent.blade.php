@@ -52,10 +52,9 @@
 							</div>
 
 							<div class="form-group">
-								<label for="exampleInputEmail1">SpreadSheet Link</label>
-								<input type="text" class="form-control" placeholder="Enter URL" name="sheet">
-								<p>Can be filled later.</p>
-							</div>
+								<label for="exampleInputEmail1">Route Map*</label>
+								<input type="text" class="form-control" placeholder="Enter the URL of Image" name="route" required>
+							</div>	
 
 						</div>
 						<div class="col-md-5">
@@ -68,21 +67,25 @@
 									</div>
 									<input type="text" class="form-control" name="time" id="datetimepicker" required>
 								</div>
+								<p class="help-block">GMT Timezone.</p>
 							</div>
 
 							<div class="form-group">
-								<label for="exampleInputEmail1">Route Map</label>
-								<input type="text" class="form-control" placeholder="Enter the URL of Image" name="route" required>
+								<label for="exampleInputEmail1">SpreadSheet Link</label>
+								<input type="text" class="form-control" placeholder="Enter URL" name="sheet">
+								<p class="help-block">Can be filled later.</p>
 							</div>
 
 							<div class="form-group">
 								<label for="exampleInputEmail1">ETS2C.com Page</label>
 								<input type="text" class="form-control" placeholder="Enter the URL here" name="ets2c">
+								<p class="help-block">Can be filled later.</p>
 							</div>
 
 							<div class="form-group">
 								<label>Additional Notes:</label>
 								<textarea class="form-control" rows="4" name="notes" placeholder="DLC required? or any additional information you want to provide"></textarea>
+								<p class="help-block">Can be filled later.</p>
 							</div>
 
 						</div>
@@ -99,7 +102,7 @@
 								<label>Roles Needed?</label>
 								<div class="input-group">
 									@foreach($roles as $role)
-										<input type="checkbox" class="minimal" name="role{{$role->id}}"> {{$role->name}}<br>
+									<input type="checkbox" class="minimal" name="role{{$role->id}}"> {{$role->name}}<br>
 									@endforeach
 								</div>
 							</div>
@@ -114,6 +117,20 @@
 				</div>
 			</div>
 		</div>
+		@if(session('status') == 'success')
+		<div class="row">
+			<div class="col-xs-12">
+				
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<h4>
+						<i class="icon fa fa-check"></i>Success!
+					</h4>
+				</div>
+				
+			</div>
+		</div>
+		@endif
 	</section>
 </div>
 

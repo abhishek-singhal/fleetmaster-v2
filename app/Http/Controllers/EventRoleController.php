@@ -201,6 +201,10 @@ class EventRoleController extends Controller
 			'save' => 'required'
 		]);
 
+		if(Auth::user()->rank < 4 && Auth::user()->id != Event::where('id', request('event_id'))->value('user_id')){
+			return redirect('/dashboard');
+		}
+
 		if($request->hasFile('save')){
 			if(!$this->isfileexist($request->input('event_id'))){
 				if($request->save->extension() == 'zip' || $request->save->extension() == 'ZIP'){
@@ -224,6 +228,9 @@ class EventRoleController extends Controller
 		$this->validate(request(), [
 			'event_id' => 'required'
 		]);
+		if(Auth::user()->rank < 4 && Auth::user()->id != Event::where('id', request('event_id'))->value('user_id')){
+			return redirect('/dashboard');
+		}
 
 		if($this->isfileexist(request('event_id'))){
 			Storage::delete('public\saves\FleetMasterEvents-'.request('event_id').'.zip');

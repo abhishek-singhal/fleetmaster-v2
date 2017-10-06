@@ -18,7 +18,7 @@
 						<li class="user-header">
 							<img src="{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
 							<p>{{Auth::user()->tmp_name}} - {{DB::table('ranks')->where('rank',Auth::user()->rank)->value('role')}}
-								<small>Member since {{Auth::user()->created_at->toDateTimeString()}}</small>
+								<small>Member since {{Auth::user()->created_at->toFormattedDateString()}}</small>
 							</p>
 						</li>
 						<li class="user-footer">

@@ -19,9 +19,11 @@
 						<h3 class="box-title">
 							{{$event->name}}
 						</h3>
+						@if(Auth::user()->rank >= 4 || $event->user_id == Auth::user()->id)
 						<a href="/event/{{$event->id}}/edit">
 							<button type="button" class="btn btn-info btn-xs pull-right">Edit</button>
 						</a>
+						@endif
 					</div>
 
 					<div class="box-body">
@@ -290,6 +292,7 @@
 				</div>
 				{!! Form::close() !!}
 
+				@if(Auth::user()->rank >= 4)
 				<!-- give role -->
 				<div class="box" style="border-top : none">
 					<div class="box-header with-border">
@@ -335,7 +338,9 @@
 					</div>
 					{!! Form::close() !!}
 				</div>
+				@endif
 
+				@if(Auth::user()->rank >= 4 || $event->user_id == Auth::user()->id)
 				<!-- Save file upload -->
 				<div class="box" style="border-top : none">
 					<div class="box-header with-border">
@@ -372,6 +377,7 @@
 					{!! Form::close() !!}
 					@endif
 				</div>
+				@endif
 				
 			</div>
 		</div>
