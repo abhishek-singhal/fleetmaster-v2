@@ -78,7 +78,7 @@
 								</div>
 							</dt>
 							<dd>
-								{{$event->time}} GMT (UTC)
+								{{date("F j, Y H:i", strtotime($event->time))}} GMT (UTC)
 							</dd>
 						</dl>
 

@@ -45,7 +45,7 @@
 										No
 										@endif
 									</td>
-									<td>{{$event->time}} GMT</td>
+									<td>{{date("F j, Y H:i", strtotime($event->time))}} GMT</td>
 									<td>
 										<a href="{{$event->route}}" target="_blank">
 											<i class="fa fa-external-link"></i>

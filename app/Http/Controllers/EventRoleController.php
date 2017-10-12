@@ -18,6 +18,11 @@ class EventRoleController extends Controller
 	public function show($id){
 		$save_file = $this->isfileexist($id);
 		$event = Event::where('id', $id)->first();
+		if(!$event->status){
+			if(Auth::user()->id != $event->user_id && Auth::user()->rank <= 3){
+				return redirect('/dashboard');
+			}
+		}
 		$event_roles = EventRole::leftjoin('roles', 'event_roles.role_id', '=', 'roles.id')->leftjoin('users', 'event_roles.user_id', '=', 'users.id')->where('event_id', $id)->orderBy('event_roles.role_id')->get();
 		$drivers = Driver::leftjoin('users', 'drivers.user_id', '=', 'users.id')->where('event_id', $id)->get();
 		return view('event', compact('event', 'event_roles', 'drivers','save_file'));

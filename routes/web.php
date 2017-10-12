@@ -67,3 +67,10 @@ Route::post('role/removedriver', 'EventRoleController@driverRemove')->middleware
 Route::post('uploadsave', 'EventRoleController@uploadSave');
 
 Route::post('deletesave', 'EventRoleController@deleteSave');
+
+//CONTACT US
+Route::get('contact/create', 'ContactController@store');
+
+Route::get('contact/{id?}', 'ContactController@show')->middleware('Supervisor');
+
+Route::post('contact', 'ContactController@status')->middleware('Supervisor');

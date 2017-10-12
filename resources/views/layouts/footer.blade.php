@@ -1,6 +1,6 @@
 <footer class="main-footer">
 	<div class="pull-right hidden-xs">
-		<strong><a href="#">FLEETMASTER EVENTS</a></strong>
+		<strong><a href="/">FLEETMASTER EVENTS</a></strong>
 	</div>
 	<strong>Copyright &copy; 2017</strong> All rights reserved.
 </footer>

@@ -133,11 +133,19 @@ class EventController extends Controller
 			'event_id' => 'required'
 		]);
 
-		Event::where('id', request('event_id'))->update([
-			'status' => 1,
-			'approved_by' => Auth::user()->id
-		]);
-
-		return redirect('/event/'.request('event_id'));
+		switch(request('action')){
+			case('approve'):
+			Event::where('id', request('event_id'))->update([
+				'status' => 1,
+				'approved_by' => Auth::user()->id
+			]);
+			return redirect('/event/'.request('event_id'));
+			break;
+			case('delete'):
+			Event::where('id', request('event_id'))->delete();
+			EventRole::where('event_id', request('event_id'))->delete();
+			break;
+		}
+		return redirect('/event/new');
 	}
 }

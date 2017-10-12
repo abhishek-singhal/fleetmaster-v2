@@ -34,7 +34,7 @@
 								<tr>
 									<td>{{$event->id}}</td>
 									<td><a href="/profile/{{$event->user_id}}">{{DB::table('users')->where('id', $event->user_id)->value('tmp_name')}}</a></td>
-									<td>{{$event->name}}</td>
+									<td><a href="/event/{{$event->id}}">{{$event->name}}</a></td>
 									<td>{{$event->server}}</td>
 									<td>{{$event->source}}</td>
 									<td>{{$event->destination}}</td>
@@ -45,7 +45,7 @@
 											No
 										@endif
 									</td>
-									<td>{{$event->time}} GMT</td>
+									<td>{{date("F j, Y H:i", strtotime($event->time))}} GMT</td>
 									<td>
 										<a href="{{$event->route}}" target="_blank">
 											<i class="fa fa-external-link"></i>
@@ -54,8 +54,9 @@
 									<td>
 										{!! Form::open(['url' => '/event/new']) !!}
 										<input type="hidden" name="event_id" value="{{$event->id}}">
-										<button type="submit" class="btn btn-xs btn-success">Approve</button>
+										<button type="submit" name="action" value="approve" class="btn btn-xs btn-success">Approve</button>
 										<a href="/event/{{$event->id}}/edit"><span class="btn btn-xs btn-info">Edit</span></a>
+										<button type="submit" name="action" value="delete" class="btn btn-xs btn-danger">Delete</button>
 										{!! Form::close() !!}
 									</td>
 								</tr>

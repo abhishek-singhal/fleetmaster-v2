@@ -76,6 +76,15 @@
 					</span>
 				</a>
 			</li>
+
+			<li @if(Request::is('contact') || Request::is('contact/*'))class="active"@endif>
+				<a href="/contact">
+					<i class="fa fa-phone"></i> <span>Contact</span>
+					<span class="pull-right-container">
+						<small class="label pull-right bg-orange">{{DB::table('contact')->where('status', 0)->count()}}</small>
+					</span>
+				</a>
+			</li>
 			@endif
 		</ul>
 	</section>
